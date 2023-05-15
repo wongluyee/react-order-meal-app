@@ -3,3 +3,8 @@ An app for ordering meal
 
 Learning React by following a tutorial and building this app.
 Still in progress...
+
+## New things I learned when building this app
+1. usePortal: Use the modal component wherever I want but render the actual HTML elements in a specific place in the DOM tree.
+2. useContext: Pass cart context data through multiple levels.
+3. useReducer: Manage state. Check whether a meal is already part of the cart or not.
