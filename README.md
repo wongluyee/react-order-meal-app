@@ -8,3 +8,5 @@ Still in progress...
 1. usePortal: Use the modal component wherever I want but render the actual HTML elements in a specific place in the DOM tree.
 2. useContext: Pass cart context data through multiple levels.
 3. useReducer: Manage state. Check whether a meal is already part of the cart or not.
+4. useRef: Persist the amount values between renders.
+5. Forward Refs: useRef on custom component.
