@@ -10,3 +10,4 @@ Still in progress...
 3. useReducer: Manage state. Check whether a meal is already part of the cart or not.
 4. useRef: Persist the amount values between renders.
 5. Forward Refs: useRef on custom component.
+6. useEffect: animation of Add button (add a bump CSS class) appears depending on the change of items in cart
