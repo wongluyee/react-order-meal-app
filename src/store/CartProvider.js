@@ -10,11 +10,13 @@ const defaultCartState = {
 const cartReducer = (state, action) => {
   // the latest state snapshot
   if (action.type === 'ADD') {
+    // Check if the item already existed in the cart or not
     const existCartItemIndex = state.items.findIndex((item) =>
       item.id === action.item.id
     );
 
     const existCartItem = state.items[existCartItemIndex];
+
     let updatedItem;
     let updatedItems;
 
@@ -29,12 +31,41 @@ const cartReducer = (state, action) => {
       // concat function return a new array
       updatedItems = state.items.concat(action.item);
     }
+
     const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
+
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount
     };
   }
+
+  if (action.type === 'REMOVE') {
+    const existCartItemIndex = state.items.findIndex((item) =>
+      item.id === action.id
+    );
+
+    const existCartItem = state.items[existCartItemIndex];
+    const updatedTotalAmount = state.totalAmount - existCartItem.price;
+
+    let updatedItems;
+
+    if (existCartItem.amount === 1) {
+      // Last item in the cart, remove the item
+      updatedItems = state.items.filter(item => item.id !== action.id);
+    } else {
+      // Not the last item in the cart, decrease the volume by 1
+      const updatedItem = { ...existCartItem, amount: existCartItem.amount - 1 }
+      updatedItems = [...state.items];
+      updatedItems[existCartItemIndex] = updatedItem;
+    }
+
+    return {
+      items: updatedItems,
+      totalAmount: updatedTotalAmount
+    }
+  }
+
   return defaultCartState;
 };
 
@@ -46,6 +77,7 @@ const CartProvider = (props) => {
     // setup type so that it can be trigger by the cartReducer
     dispatchCartAction({type: 'ADD', item: item})
   };
+
   const removeItemFromCartHandler = (id) => {
     dispatchCartAction({type: 'REMOVE', id: id})
   };
